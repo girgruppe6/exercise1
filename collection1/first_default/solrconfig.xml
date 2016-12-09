@@ -744,7 +744,7 @@
     -->
     
   <requestHandler name="/dataimport" class="org.apache.solr.handler.dataimport.DataImportHandler" startup="lazy">
-    <lst name="default">
+    <lst name="defaults">
         <str name="config">data-config.xml</str>
     </lst>
   </requestHandler>
@@ -1430,3 +1430,4 @@
      <transformer name="qecBooster" class="org.apache.solr.response.transform.EditorialMarkerFactory" />
     -->
 </config>
+
