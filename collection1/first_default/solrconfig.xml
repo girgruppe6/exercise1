@@ -72,6 +72,9 @@
        The examples below can be used to load some solr-contribs along 
        with their external dependencies.
     -->
+  <lib dir="${solr.install.dir:../../../..}/contrib/dataimporthandler/lib/" regex=".*\.jar" />
+  <lib dir="${solr.install.dir:../../../..}/dist/" regex="solr-dataimporthandler-.*\.jar" />
+  
   <lib dir="${solr.install.dir:../../../..}/contrib/extraction/lib" regex=".*\.jar" />
   <lib dir="${solr.install.dir:../../../..}/dist/" regex="solr-cell-\d.*\.jar" />
 
@@ -739,6 +742,13 @@
        not be initialized until the first request that uses it.
 
     -->
+    
+  <requestHandler name="/dataimport" class="org.apache.solr.handler.dataimport.DataImportHandler" startup="lazy">
+    <lst name="default">
+        <str name="config">data-config.xml</str>
+    </lst>
+  </requestHandler>
+  
   <!-- SearchHandler
 
        http://wiki.apache.org/solr/SearchHandler
@@ -1195,6 +1205,8 @@
    <bool name="mutable">true</bool>
    <str name="managedSchemaResourceName">schema-gruppe6.xml</str>
  </schemaFactory>
+ 
+ <!--den requestprocessorChain aktiviert um nicht bekannten fields hizufügen zu können-->
   <updateRequestProcessorChain name="add-unknown-fields-to-the-schema">
     <!-- UUIDUpdateProcessorFactory will generate an id if none is present in the incoming document -->
     <processor class="solr.UUIDUpdateProcessorFactory" />
