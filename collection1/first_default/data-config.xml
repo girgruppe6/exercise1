@@ -1,0 +1,22 @@
+<dataConfig>
+    <dataSource type="FileDataSource" encoding="UTF-8"/>
+    <document>
+        <entity name="pickupdir"
+                processor="FileListEntityProcessor"
+                dataSource="null"
+                baseDir="~/TU/WS16/GIR/ex_1/solr-6.3.0/test/"
+                recursive="true"
+                fileName="^[\w\d-]+\.xml$" />
+        <entity name="first_default"
+                processor="XPathEntityProcessor"
+                stream="true"
+                datasource="pickupdir"
+                url="${pickupdir.fileAbsolutePath}"
+                forEach="/DOCS/DOC">
+            <field column="id" xpath="/DOCS/DOC/DOCNO"/>
+            <field column="docid" xpath="/DOCS/DOC/DOCID"/>
+            <field column="header" xpath="/DOCS/DOC/HEADER"/>
+            <field column="text" xpath="/DOCS/DOC/TEXT"/>
+        </entity>
+    </document>
+</dataConfig>
